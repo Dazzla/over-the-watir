@@ -1,31 +1,25 @@
-class ExpediaFlightsPage
-  attr_accessor :origin_search_field, :destination_search_field,
-                  :outgoing_depart_date_field, :incoming_depart_date_field,
-                  :no_of_adults_select, :no_of_children_select, :no_of_seniors_select, :child_age_select,
-                  :preferred_airline_select,
-                  :submit_button
+require File.expand_path(File.dirname(__FILE__) + '/flight_search_page')
 
-  
-  def initialize(browser, brand)
-  	@browser = browser
-    @brand = brand
-  end
-   
-  def method_missing(sym, *args, &block)
-    @browser.send sym, *args, &block
+class ExpediaFlightsPage < FlightSearchPage
+
+  attr_accessor   :departure_port, :destination_port,
+                  :outgoing_depart_date, :incoming_depart_date,
+                  :no_of_adults, :no_of_children, :no_of_seniors, :no_of_infants, :child_age,
+                  :preferred_airline, :submit_button
+
+  def initialize(browser, page)
+    @browser = browser
+    @departure_port =  "uw_flight_origin_input"
+    @start_url = page
   end
 
   def visit
-    @browser.goto(@brand)
+    @browser.goto(@start_url)
     @browser.link(:text => "No thanks").when_present.click
   end
 
-  def page_title
-    @browser.title
-  end
-
   def set_origin origin
-    @browser.text_field(:id => "uw_flight_origin_input").set origin
+    self.text_field(:id => @departure_port).set origin
   end
 
   def set_destination destination
@@ -49,12 +43,16 @@ class ExpediaFlightsPage
   end
 
   def set_number_of_adults adults
-    self.text_field(:id => "sc_Adults").set adults
+    self.select_list(:id => "uw_flight_adults_input").select adults
   end
  
+  def no_flights_found_message
+    @browser.div(:id => "divFlightResultErrTitle").text
+    raise UserErrorNotDisplayed unless divFlightResultErrTitle.exists? 
+  end
+
   def submit_search
     self.link(:id => "uw_flight_submit_lnk").click
   end
- 
 end
 

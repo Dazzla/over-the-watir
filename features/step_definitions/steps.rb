@@ -22,7 +22,7 @@ When /^I choose a flight from (.{3}) to (.{3}) for (\d+) adults?, (\d+) child|re
   @dest = dest
   @flight_search_page.set_origin orig
   @flight_search_page.set_destination dest
-  @browser.select_list(:id => "uw_flight_adults_input").select adults
+  @flight_search_page.set_number_of_adults adults
 end
 
 And /^I set the (departure) date to be (\d+)\/(\d+)\/(\d+)$/ do |itinerary, dd, mm, yyyy|
@@ -32,12 +32,12 @@ And /^I set the (departure) date to be (\d+)\/(\d+)\/(\d+)$/ do |itinerary, dd, 
 end
 
 And /^I set the (return) date to be (\d+)\/(\d+)\/(\d+)$/ do |itinerary, dd, mm, yyyy|
-  @itinerary = itinerary
+  #@itinerary = itinerary
   return_date = "#{dd}/#{mm}/#{yyyy}"
   @flight_search_page.set_return_date(return_date)
 end
 
-And /^I click the submit button$/ do
+And /^I click the "(.*?)" button$/ do |submit_type|
   @flight_search_page.submit_search
 end
 
@@ -49,6 +49,10 @@ Then /^I see a results page for a (return|one\-way) flight search$/ do |type|
   end
 end
 
+Then /^I see a page title telling me that no flights have been found$/ do
+    @flight_search_page.page_title.should eq("No flights were found that matched your request")
+end
 
-
-
+Then /^I close the browser$/ do
+  @browser.close
+end
