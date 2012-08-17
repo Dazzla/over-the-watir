@@ -10,25 +10,23 @@ class BrandFlightsPage < FlightSearchPage
                   :preferred_airline, :submit_button
 
   def initialize(browser, page, brand)
-    @browser = browser
-    configurator = BrandConfigurator.new(brand)
-    @departure_port = "uw_flight_origin_input"
-    @destination_port = "uw_flight_destination_input"
-    @outgoing_depart_date = "uw_flight_dep_date_input"
-    @incoming_depart_date =  "uw_flight_return_date_input"
-    @itinerary_type_single = "uw_flight_type0"
-    @itinerary_type_return = "uw_flight_type1"
-    @no_of_adults =  "uw_flight_adults_input"
-    @no_of_children = "uw_flight_children_input"
-    @no_of_seniors = "uw_flight_seniors_input"
-    @error_container = "divFlightResultErrTitle"
-    @submit_button = "uw_flight_submit_lnk"
-    @start_url = page
+    super(browser, page)
+    configurator  = BrandConfigurator.new(brand)
+    @departure_port             = configurator.get_departure_port_element
+    @destination_port           = configurator.get_destination_port_element
+    @outgoing_depart_date       = configurator.get_outgoing_depart_date_element
+    @incoming_depart_date       = configurator.get_incoming_depart_date_element
+    @itinerary_type_single      = configurator.get_itinerary_type_single_element
+    @itinerary_type_return      = configurator.get_itinerary_type_return_element
+    @no_of_adults               = configurator.get_no_of_adults_element
+    @no_of_children             = configurator.get_no_of_children_element
+    @no_of_seniors              = configurator.get_no_of_seniors_element
+    @no_results_error_container = configurator.get_no_results_error_container_element
+    @submit_button              = configurator.get_submit_button_element
   end
 
   def visit
     @browser.goto(@start_url)
-    @browser.link(:text => "No thanks").when_present.click
   end
 
   def set_origin origin
@@ -68,7 +66,7 @@ class BrandFlightsPage < FlightSearchPage
   end
 
   def no_flights_found_message
-    @browser.div(:id => @error_container).text
+    @browser.div(:id => @no_results_error_container).text
     raise UserErrorNotDisplayed unless divFlightResultErrTitle.exists?
   end
 

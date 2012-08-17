@@ -1,5 +1,9 @@
 class FlightSearchPage
-  
+
+  def initialize(browser, page)
+    @browser      = browser
+    @start_url    = page
+  end
 
 
   def method_missing(sym, *args, &block)

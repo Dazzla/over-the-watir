@@ -1,7 +1,8 @@
 Feature: Flight Search
 
   Background:
-    Given  I am on http://www.expedia.co.uk/Flights
+    Given I want to use Expedia to search for flights
+    And  I am on http://www.expedia.co.uk/Flights
 
   @short_set
   Scenario: Successful search, one-way
@@ -14,6 +15,8 @@ Feature: Flight Search
 
   @flickering
   Scenario: Successful search, return
+    #This scenario sometimes fails with the error:
+    #Element is not currently visible and so may not be interacted with
     When I choose a flight from LHR to EDI for 2 adults, 1 child and 0 infants
     And I select a return flight
     And I set the departure date to be 20/10/2012
