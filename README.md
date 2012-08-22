@@ -8,5 +8,6 @@ The intention is to build a customisable cucumber testing framework for fast dep
 TODO:
  
 * Put field elements in config files
+* Investigate white-labelling
 * Add more cucumber scenarios
 * Expand for hotels, full packages, etc
