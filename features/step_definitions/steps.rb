@@ -1,6 +1,6 @@
 require File.join(File.dirname(__FILE__), '..', '..', 'pages', 'brand_flight_search_page')
 require "rubygems"
-require "watir-webdriver"
+#require "watir-webdriver"
 
 Given /^I want to use (\w+) to search for flights$/ do |brand|
   @brand = brand.downcase
@@ -32,7 +32,7 @@ And /^I set the (departure) date to be (\d+)\/(\d+)\/(\d+)$/ do |itinerary, dd, 
 end
 
 And /^I set the (return) date to be (\d+)\/(\d+)\/(\d+)$/ do |itinerary, dd, mm, yyyy|
-  #@itinerary = itinerary
+  @itinerary = itinerary
   return_date = "#{dd}/#{mm}/#{yyyy}"
   @flight_search_page.set_return_date(return_date)
 end
@@ -43,16 +43,12 @@ end
 
 Then /^I see a results page for a (return|one\-way) flight search$/ do |type|
   if type === "one-way"
-    @flight_search_page.page_title.should eq("Complete trips - #{@orig} to #{@dest}") 
+    @flight_search_page.page_title.should eq("Complete trips - #@orig to #@dest")
   else
-    @flight_search_page.page_title.should eq("Build your own trip - #{@orig} to #{@dest}") 
+    @flight_search_page.page_title.should eq("Build your own trip - #@orig to #@dest")
   end
 end
 
 Then /^I see a page title telling me that no flights have been found$/ do
     @flight_search_page.page_title.should eq("No flights were found that matched your request")
-end
-
-Then /^I close the browser$/ do
-  @browser.close
 end

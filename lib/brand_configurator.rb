@@ -1,55 +1,40 @@
 class BrandConfigurator
-  #Will fetch the element selectors (preferably ids) from yaml config files
+  #Will fetch the element selectors from yaml config files
+
+
+  attr_reader :route, :date, :itinerary_type, :no_of_pax,
+              :no_results_error_container_element, :submit_button_element
 
   def initialize(brand)
-    #Will be used to select correct element configurations
+    #Used to select correct element configurations to give brand flexibility
     #Will eventually use a config file - hard-coded stub for now.
+    #brand is specified by the customer in the features file
+
     @brand = brand
-  end
+    @route  =             {
+                            :origin  => "uw_flight_origin_input",
+                            :destination =>  "uw_flight_destination_input"
+                          }
 
-  def get_departure_port_element
-    "uw_flight_origin_input"
-  end
+    @date =               {
+                            :outgoing_date => "uw_flight_dep_date_input",
+                            :incoming_date => "uw_flight_return_date_input"
+                          }
 
-  def get_destination_port_element
-    "uw_flight_destination_input"
-  end
+    @itinerary_type =     {
+                            :single =>  "uw_flight_type0",
+                            :return =>  "uw_flight_type1"
+                          }
 
-  def get_outgoing_depart_date_element
-    "uw_flight_dep_date_input"
-  end
+    @no_of_pax =          {
+                            :adults =>    "uw_flight_adults_input",
+                            :children =>  "uw_flight_children_input",
+                            :seniors  =>  "uw_flight_seniors_input",
+                            :infants =>   "" #Not required here
+                          }
 
-  def get_incoming_depart_date_element
-    "uw_flight_return_date_input"
+    @no_results_error_container_element = "divFlightResultErrTitle"
+    @submit_button_element = "uw_flight_submit_lnk"
   end
-
-  def get_itinerary_type_single_element
-    "uw_flight_type0"
-  end
-
-  def get_itinerary_type_return_element
-      "uw_flight_type1"
-  end
-
-  def get_no_of_adults_element
-    "uw_flight_adults_input"
-  end
-
-  def get_no_of_children_element
-    "uw_flight_children_input"
-  end
-
-  def get_no_of_seniors_element
-    "uw_flight_seniors_input"
-  end
-
-  def get_no_results_error_container_element
-    "divFlightResultErrTitle"
-  end
-
-  def get_submit_button_element
-    "uw_flight_submit_lnk"
-  end
-
 
 end
