@@ -1,16 +1,14 @@
 require File.expand_path(File.dirname(__FILE__) + '/flight_search_page')
 require File.join(File.dirname(__FILE__), '..', 'lib', 'brand_configurator')
 
-
 class BrandFlightsPage < FlightSearchPage
-
 
   def initialize(browser, page, brand)
     super(browser, page)
 
     configurator  = BrandConfigurator.new(brand)
 
-    #the following are hashes, provided by the configurator object. They tell the methods of this object
+    #the following are hashes, provided by the configurator object. They tell the instance methods of this class
     #where to access the html page elements
     @route                      = configurator.route
     @date                       = configurator.date
@@ -20,7 +18,6 @@ class BrandFlightsPage < FlightSearchPage
     #These are strings, also from the configurator object.
     @no_results_error_container = configurator.no_results_error_container_element
     @submit_button              = configurator.submit_button_element
-
   end
 
   def visit
@@ -40,16 +37,16 @@ class BrandFlightsPage < FlightSearchPage
   end
 
   def set_journey_type(type)
-      if type == "return"
-        self.radio(@route[:attribute]  => @itinerary_type[:single]).set
-      else
-        self.radio(@route[:attribute]  => @itinerary_type[:return]).set
-      end
+    if type == "return"
+      self.radio(@route[:attribute]  => @itinerary_type[:single]).set
+    else
+      self.radio(@route[:attribute]  => @itinerary_type[:return]).set
+    end
   end
 
   def set_return_date(inbound)
-     self.text_field(@route[:attribute]  => @date[:incoming_date]).set inbound
-   end
+    self.text_field(@route[:attribute]  => @date[:incoming_date]).set inbound
+  end
 
   def set_number_of_adults(adults)
      self.select_list(@route[:attribute]  => @no_of_pax[:adults]).select adults

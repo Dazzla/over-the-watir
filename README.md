@@ -7,7 +7,13 @@ The intention is to build a customisable cucumber testing framework for fast dep
 
 TODO:
  
-* Put field elements in config files
+* ~~Put field elements in config files~~ DONE
+
 * Investigate white-labelling
-* Add more cucumber scenarios
-* Expand for hotels, full packages, etc
+  1. Add config for different site
+
+* Add more scenarios
+
+* Expand for full packages
+  1. Hotels
+  1. Packages

@@ -10,6 +10,7 @@ class FlightSearchPage
   end
 
   def page_title
+    #Returns contents of <title> tag in current page.
     @browser.title
   end
 

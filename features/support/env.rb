@@ -1,6 +1,6 @@
 TEST_DATA_DIR = "./features/test_data"
 
-URL_CAPTURE = Transform /http:\/\/www\.expedia\.co\.uk\/Flights$/  do |url|
+URL_CAPTURE = Transform /http:\/\/(?:www.)?\S+\.(?:co\.uk|com)(?:\/\S+)/  do |url|
   url.to_s
 end
 
