@@ -28,39 +28,39 @@ class BrandFlightsPage < FlightSearchPage
   end
 
   def set_origin(origin)
-    self.text_field(:id => @route[:origin]).set origin
+    self.text_field(@route[:attribute] => @route[:origin]).set origin
   end
 
   def set_destination(destination)
-    self.text_field(:id => @route[:destination]).set destination
+    self.text_field(@route[:attribute] => @route[:destination]).set destination
   end
 
   def set_departure_date(outbound)
-    self.text_field(:id => @date[:outgoing_date]).set outbound
+    self.text_field(@route[:attribute]  => @date[:outgoing_date]).set outbound
   end
 
   def set_journey_type(type)
       if type == "return"
-        self.radio(:id => @itinerary_type[:single]).set
+        self.radio(@route[:attribute]  => @itinerary_type[:single]).set
       else
-        self.radio(:id => @itinerary_type[:return]).set
+        self.radio(@route[:attribute]  => @itinerary_type[:return]).set
       end
   end
 
   def set_return_date(inbound)
-     self.text_field(:id => @date[:incoming_date]).set inbound
+     self.text_field(@route[:attribute]  => @date[:incoming_date]).set inbound
    end
 
   def set_number_of_adults(adults)
-     self.select_list(:id => @no_of_pax[:adults]).select adults
+     self.select_list(@route[:attribute]  => @no_of_pax[:adults]).select adults
   end
 
   def set_no_of_children(children)
-    self.select_list(:id => @no_of_pax[:children]).select children
+    self.select_list(@route[:attribute]  => @no_of_pax[:children]).select children
   end
 
   def set_no_of_seniors(seniors)
-    self.select_list(:id => @no_of_adults[:seniors]).select seniors
+    self.select_list(@route[:attribute]  => @no_of_adults[:seniors]).select seniors
   end
 
   def no_flights_found_message
