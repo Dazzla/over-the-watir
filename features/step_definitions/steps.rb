@@ -1,14 +1,14 @@
-require File.join(File.dirname(__FILE__), '..', '..', 'pages', 'brand_flight_search_page')
-require "rubygems"
+require File.join(File.dirname(__FILE__), '..', '..', 'pages', 'flight_search_page')
+require File.join(File.dirname(__FILE__), '..', '..', 'pages', 'set_fields_by_type')
 
 Given /^I want to use (\w+) to search for flights$/ do |brand|
   @brand = brand.downcase
 end
 
-And /^I am on (#{URL_CAPTURE})/ do |page|
-  @flight_search_page = BrandFlightsPage.new(@browser, page, @brand)
+And /^I am on (http:\/\/(?:www.)?\S+\.(?:co\.uk|com)(?:\/\S+))/ do |page|
+  @flight_search_page = FlightSearchPage.new(@browser, page, @brand)
   @flight_search_page.visit
-  @browser.link(:text => "No thanks").when_present.click
+  @flight_search_page.link(:text => "No thanks").when_present.click
 end
 
 When /^I select a (one\-way|return) flight$/ do |itinerary|

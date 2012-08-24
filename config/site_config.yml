@@ -1,4 +1,5 @@
 :route:           { :attribute:     :id,
+                    :elem_type:     "text_field",
                     :origin:        "uw_flight_origin_input",
                     :destination:   "uw_flight_destination_input"  }
 
@@ -16,8 +17,8 @@
                      :seniors:    "uw_flight_seniors_input",
                      :infants:    ""  }
 
-:site_specific:         { :attribute: :id,
-                          :no_results_error_container_element: "divFlightResultErrTitle"  }
+:no_results_error_container:  { :attribute: :id,
+                                        :error_element: "divFlightResultErrTitle"  }
 
-:generic_page_elements: { :attribute: :id,
-                          :submit_button_element: "uw_flight_submit_lnk"}
+:submit_button_element: { :attribute: :id,
+                          :button_element: "uw_flight_submit_lnk" }

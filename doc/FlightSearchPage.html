@@ -74,7 +74,29 @@
     
     <li><a href="#method-i-method_missing">#method_missing</a>
     
+    <li><a href="#method-i-no_flights_found_message">#no_flights_found_message</a>
+    
     <li><a href="#method-i-page_title">#page_title</a>
+    
+    <li><a href="#method-i-set_departure_date">#set_departure_date</a>
+    
+    <li><a href="#method-i-set_destination">#set_destination</a>
+    
+    <li><a href="#method-i-set_journey_type">#set_journey_type</a>
+    
+    <li><a href="#method-i-set_no_of_children">#set_no_of_children</a>
+    
+    <li><a href="#method-i-set_no_of_seniors">#set_no_of_seniors</a>
+    
+    <li><a href="#method-i-set_number_of_adults">#set_number_of_adults</a>
+    
+    <li><a href="#method-i-set_origin">#set_origin</a>
+    
+    <li><a href="#method-i-set_return_date">#set_return_date</a>
+    
+    <li><a href="#method-i-submit_search">#submit_search</a>
+    
+    <li><a href="#method-i-visit">#visit</a>
     
   </ul>
 </nav>
@@ -88,13 +110,11 @@
 
   <ul class="link-list">
   
-    <li><a href="./BrandConfigurator.html">BrandConfigurator</a>
-  
-    <li><a href="./BrandFlightsPage.html">BrandFlightsPage</a>
-  
     <li><a href="./FlightSearchPage.html">FlightSearchPage</a>
   
     <li><a href="./Object.html">Object</a>
+  
+    <li><a href="./SetFieldsByType.html">SetFieldsByType</a>
   
   </ul>
 </nav>
@@ -123,6 +143,56 @@
 
     <!-- Methods -->
     
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(browser, page, brand)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File pages/flight_search_page.rb, line 3</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">browser</span>, <span class="ruby-identifier">page</span>, <span class="ruby-identifier">brand</span>)
+  <span class="ruby-ivar">@browser</span> = <span class="ruby-identifier">browser</span>
+  <span class="ruby-ivar">@start_url</span>    = <span class="ruby-identifier">page</span>
+
+  <span class="ruby-comment">#Get reference to config file</span>
+  <span class="ruby-identifier">config_file</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-keyword">__FILE__</span>), <span class="ruby-string">'..'</span>, <span class="ruby-string">'config'</span>, <span class="ruby-string">'site_config.yml'</span>)
+
+  <span class="ruby-comment">#Store hash of config values in local variable</span>
+  <span class="ruby-identifier">config</span> = <span class="ruby-constant">YAML</span>.<span class="ruby-identifier">load_file</span> <span class="ruby-identifier">config_file</span>
+
+  <span class="ruby-ivar">@brand</span> = <span class="ruby-identifier">brand</span>        <span class="ruby-comment">#brand is specified by the customer in the features file</span>
+
+  <span class="ruby-comment">#Define instance variables from the hash keys</span>
+  <span class="ruby-identifier">config</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">instance_variable_set</span>(<span class="ruby-node">&quot;@#{k}&quot;</span>,<span class="ruby-identifier">v</span>)
+    <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- new-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- new-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
      <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
       <h3 class="section-header">Public Instance Methods</h3>
 
@@ -143,7 +213,7 @@
 
           
           <div class="method-source-code" id="method_missing-source">
-            <pre><span class="ruby-comment"># File pages/flight_search_page.rb, line 8</span>
+            <pre><span class="ruby-comment"># File pages/flight_search_page.rb, line 21</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">method_missing</span>(<span class="ruby-identifier">sym</span>, *<span class="ruby-identifier">args</span>, &amp;<span class="ruby-identifier">block</span>)
   <span class="ruby-ivar">@browser</span>.<span class="ruby-identifier">send</span> <span class="ruby-identifier">sym</span>, *<span class="ruby-identifier">args</span>, &amp;<span class="ruby-identifier">block</span>
 <span class="ruby-keyword">end</span></pre>
@@ -155,6 +225,37 @@
 
         
       </div><!-- method_missing-method -->
+
+    
+      <div id="method-i-no_flights_found_message" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">no_flights_found_message</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="no_flights_found_message-source">
+            <pre><span class="ruby-comment"># File pages/flight_search_page.rb, line 70</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">no_flights_found_message</span>
+  <span class="ruby-ivar">@browser</span>.<span class="ruby-identifier">div</span>(<span class="ruby-ivar">@no_results_error_container</span>[<span class="ruby-value">:attribute</span>] =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@no_results_error_container</span>[<span class="ruby-value">:error_element</span>]).<span class="ruby-identifier">text</span>
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">UserErrorNotDisplayed</span>, <span class="ruby-string">&quot;Expected user error message not displayed&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">divFlightResultErrTitle</span>.<span class="ruby-identifier">exists?</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- no_flights_found_message-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- no_flights_found_message-method -->
 
     
       <div id="method-i-page_title" class="method-detail ">
@@ -173,7 +274,7 @@
 
           
           <div class="method-source-code" id="page_title-source">
-            <pre><span class="ruby-comment"># File pages/flight_search_page.rb, line 12</span>
+            <pre><span class="ruby-comment"># File pages/flight_search_page.rb, line 25</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">page_title</span>
   <span class="ruby-comment">#Returns contents of &lt;title&gt; tag in current page.</span>
   <span class="ruby-ivar">@browser</span>.<span class="ruby-identifier">title</span>
@@ -188,17 +289,11 @@
       </div><!-- page_title-method -->
 
     
-    </section><!-- public-instance-method-details -->
-  
-     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
-      <h3 class="section-header">Public Class Methods</h3>
-
-    
-      <div id="method-c-new" class="method-detail ">
+      <div id="method-i-set_departure_date" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">new</span><span
-            class="method-args">(browser, page)</span>
+          <span class="method-name">set_departure_date</span><span
+            class="method-args">(outbound)</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
         
@@ -209,23 +304,296 @@
           
 
           
-          <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File pages/flight_search_page.rb, line 3</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">browser</span>, <span class="ruby-identifier">page</span>)
-  <span class="ruby-ivar">@browser</span>      = <span class="ruby-identifier">browser</span>
-  <span class="ruby-ivar">@start_url</span>    = <span class="ruby-identifier">page</span>
+          <div class="method-source-code" id="set_departure_date-source">
+            <pre><span class="ruby-comment"># File pages/flight_search_page.rb, line 42</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_departure_date</span>(<span class="ruby-identifier">outbound</span>)
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">text_field</span>(<span class="ruby-ivar">@route</span>[<span class="ruby-value">:attribute</span>]  =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@date</span>[<span class="ruby-value">:outgoing_date</span>]).<span class="ruby-identifier">set</span> <span class="ruby-identifier">outbound</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- new-source -->
+          </div><!-- set_departure_date-source -->
           
         </div>
 
         
 
         
-      </div><!-- new-method -->
+      </div><!-- set_departure_date-method -->
 
     
-    </section><!-- public-class-method-details -->
+      <div id="method-i-set_destination" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set_destination</span><span
+            class="method-args">(destination)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="set_destination-source">
+            <pre><span class="ruby-comment"># File pages/flight_search_page.rb, line 38</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_destination</span>(<span class="ruby-identifier">destination</span>)
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">text_field</span>(<span class="ruby-ivar">@route</span>[<span class="ruby-value">:attribute</span>] =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@route</span>[<span class="ruby-value">:destination</span>]).<span class="ruby-identifier">set</span> <span class="ruby-identifier">destination</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- set_destination-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- set_destination-method -->
+
+    
+      <div id="method-i-set_journey_type" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set_journey_type</span><span
+            class="method-args">(type)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="set_journey_type-source">
+            <pre><span class="ruby-comment"># File pages/flight_search_page.rb, line 46</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_journey_type</span>(<span class="ruby-identifier">type</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;return&quot;</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">radio</span>(<span class="ruby-ivar">@route</span>[<span class="ruby-value">:attribute</span>]  =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@itinerary_type</span>[<span class="ruby-value">:single</span>]).<span class="ruby-identifier">set</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">radio</span>(<span class="ruby-ivar">@route</span>[<span class="ruby-value">:attribute</span>]  =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@itinerary_type</span>[<span class="ruby-value">:return</span>]).<span class="ruby-identifier">set</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- set_journey_type-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- set_journey_type-method -->
+
+    
+      <div id="method-i-set_no_of_children" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set_no_of_children</span><span
+            class="method-args">(children)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="set_no_of_children-source">
+            <pre><span class="ruby-comment"># File pages/flight_search_page.rb, line 62</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_no_of_children</span>(<span class="ruby-identifier">children</span>)
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">select_list</span>(<span class="ruby-ivar">@route</span>[<span class="ruby-value">:attribute</span>]  =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@no_of_pax</span>[<span class="ruby-value">:children</span>]).<span class="ruby-identifier">select</span> <span class="ruby-identifier">children</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- set_no_of_children-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- set_no_of_children-method -->
+
+    
+      <div id="method-i-set_no_of_seniors" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set_no_of_seniors</span><span
+            class="method-args">(seniors)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="set_no_of_seniors-source">
+            <pre><span class="ruby-comment"># File pages/flight_search_page.rb, line 66</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_no_of_seniors</span>(<span class="ruby-identifier">seniors</span>)
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">select_list</span>(<span class="ruby-ivar">@route</span>[<span class="ruby-value">:attribute</span>]  =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@no_of_adults</span>[<span class="ruby-value">:seniors</span>]).<span class="ruby-identifier">select</span> <span class="ruby-identifier">seniors</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- set_no_of_seniors-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- set_no_of_seniors-method -->
+
+    
+      <div id="method-i-set_number_of_adults" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set_number_of_adults</span><span
+            class="method-args">(adults)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="set_number_of_adults-source">
+            <pre><span class="ruby-comment"># File pages/flight_search_page.rb, line 58</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_number_of_adults</span>(<span class="ruby-identifier">adults</span>)
+   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">select_list</span>(<span class="ruby-ivar">@route</span>[<span class="ruby-value">:attribute</span>]  =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@no_of_pax</span>[<span class="ruby-value">:adults</span>]).<span class="ruby-identifier">select</span> <span class="ruby-identifier">adults</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- set_number_of_adults-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- set_number_of_adults-method -->
+
+    
+      <div id="method-i-set_origin" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set_origin</span><span
+            class="method-args">(origin)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="set_origin-source">
+            <pre><span class="ruby-comment"># File pages/flight_search_page.rb, line 34</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_origin</span>(<span class="ruby-identifier">origin</span>)
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">text_field</span>(<span class="ruby-ivar">@route</span>[<span class="ruby-value">:attribute</span>] =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@route</span>[<span class="ruby-value">:origin</span>]).<span class="ruby-identifier">set</span> <span class="ruby-identifier">origin</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- set_origin-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- set_origin-method -->
+
+    
+      <div id="method-i-set_return_date" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set_return_date</span><span
+            class="method-args">(inbound)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="set_return_date-source">
+            <pre><span class="ruby-comment"># File pages/flight_search_page.rb, line 54</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_return_date</span>(<span class="ruby-identifier">inbound</span>)
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">text_field</span>(<span class="ruby-ivar">@route</span>[<span class="ruby-value">:attribute</span>]  =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@date</span>[<span class="ruby-value">:incoming_date</span>]).<span class="ruby-identifier">set</span> <span class="ruby-identifier">inbound</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- set_return_date-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- set_return_date-method -->
+
+    
+      <div id="method-i-submit_search" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">submit_search</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="submit_search-source">
+            <pre><span class="ruby-comment"># File pages/flight_search_page.rb, line 75</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">submit_search</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">link</span>(<span class="ruby-ivar">@submit_button_element</span>[<span class="ruby-value">:attribute</span>] =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@submit_button_element</span>[<span class="ruby-value">:button_element</span>]).<span class="ruby-identifier">click</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- submit_search-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- submit_search-method -->
+
+    
+      <div id="method-i-visit" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">visit</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="visit-source">
+            <pre><span class="ruby-comment"># File pages/flight_search_page.rb, line 30</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">visit</span>
+    <span class="ruby-ivar">@browser</span>.<span class="ruby-identifier">goto</span>(<span class="ruby-ivar">@start_url</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- visit-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- visit-method -->
+
+    
+    </section><!-- public-instance-method-details -->
   
   </section><!-- 5Buntitled-5D -->
 
